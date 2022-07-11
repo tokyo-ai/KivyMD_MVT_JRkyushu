@@ -1,0 +1,26 @@
+<DoubleCameraScreenView>:
+    name: "doublecamerascreenview"
+    BoxLayout:
+        orientation: "vertical"
+        Image:
+            id: doublecamera
+            size_hint_y: 18
+            resolution: (1024, 1024)
+            allow_stretch: True
+            keep_ratio: True
+        Button:
+            id: capture
+            font_size: 30
+            text: "Capture"
+            size_hint_y: 1
+            on_press: app.start_camera()
+
+        Button:
+            id: stop_capture
+            font_size: 30
+            text: "Stop Capture"
+            size_hint_y: 1
+            on_press: app.stop_camera()
+
+
+
