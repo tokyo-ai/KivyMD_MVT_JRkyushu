@@ -7,6 +7,7 @@ from Model.doublecamerascreen import DoubleCameraModel
 class TextMVC(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.title = 'KivyMD_MVT_JRkyushu'
         self.model = DoubleCameraModel()
         self.controller = DoubleCameraScreenController(self.model)
 
