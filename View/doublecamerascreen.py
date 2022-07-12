@@ -19,6 +19,7 @@ class DoubleCameraScreenView(MDScreen, Observer):
         self.controller.set_camera_texture(value)
 
     def model_is_changed(self):
-        self.ids.doublecamera.texture = self.model._camera_texture
+        self.ids.camview.texture = self.model._camera_texture
 
 Builder.load_file(os.path.join(os.path.dirname(__file__), "doublecamerascreen.kv"))
+# Builder.load_file(os.path.join(os.path.dirname(__file__), "store.kv"))

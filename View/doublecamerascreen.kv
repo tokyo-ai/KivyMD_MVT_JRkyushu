@@ -1,27 +1,44 @@
 <DoubleCameraScreenView>:
     name: "doublecamerascreenview"
     BoxLayout:
-        orientation: "vertical"
+        orientation: "horizontal"
         Image:
-            id: doublecamera
+            id: camview
             source: 'initials.jpg'
-            size_hint_y: 18
+            size_hint_y: 1
             resolution: (1024, 1024)
             allow_stretch: True
             keep_ratio: True
-        Button:
-            id: capture
-            font_size: 30
-            text: "Capture"
-            size_hint_y: 1
-            on_press: app.start_camera()
 
-        Button:
-            id: stop_capture
-            font_size: 30
-            text: "Stop Capture"
-            size_hint_y: 1
-            on_press: app.stop_camera()
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.3
 
+            Button:
+                id: start_capture
+                font_size: 30
+                text: "START\nCAPTURE"
+                size_hint_y: 1
+                on_press: app.start_camera()
 
+            Button:
+                id: stop_capture
+                font_size: 30
+                text: "STOP\nCAPTURE"
+                size_hint_y: 1
+                on_press: app.stop_camera()
+
+            Button:
+                id: start_yolo_detectore
+                font_size: 30
+                text: "START\nDETECTOR"
+                size_hint_y: 1
+                on_press: app.start_yolo_detector()
+
+            Button:
+                id: stop_capture
+                font_size: 30
+                text: "STOP\nDETECTOR"
+                size_hint_y: 1
+                on_press: app.stop_yolo_detector()
 

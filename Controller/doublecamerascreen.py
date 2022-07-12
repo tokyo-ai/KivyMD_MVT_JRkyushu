@@ -23,3 +23,9 @@ class DoubleCameraScreenController:
 
     def stop_camera(self):
         self.model.stop_camera()
+
+    def start_yolo_detector(self):
+        self.model.start_yolo_detector()
+
+    def stop_yolo_detector(self):
+        self.model.stop_yolo_detector()

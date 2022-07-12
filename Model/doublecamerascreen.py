@@ -39,6 +39,12 @@ class DoubleCameraModel(Widget):
             lambda dt: self.refresh_content())
         self.notify_observers()
 
+    def start_yolo_detector(self):
+        pass
+
+    def start_yolo_detector(self):
+        pass
+
     def cam_size(self):
         pass
 
