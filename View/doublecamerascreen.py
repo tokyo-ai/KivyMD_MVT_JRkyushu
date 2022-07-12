@@ -2,12 +2,12 @@ import os
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
 from kivy.properties import ObjectProperty
-
 from Utility.observer import Observer
 from kivy.graphics.texture import Texture
+from kivy.uix.tabbedpanel import TabbedPanel
 
 
-class DoubleCameraScreenView(MDScreen, Observer):
+class DoubleCameraScreenView(MDScreen, Observer, TabbedPanel):
     controller = ObjectProperty()
     model = ObjectProperty()
 
@@ -21,5 +21,5 @@ class DoubleCameraScreenView(MDScreen, Observer):
     def model_is_changed(self):
         self.ids.camview.texture = self.model._camera_texture
 
+
 Builder.load_file(os.path.join(os.path.dirname(__file__), "doublecamerascreen.kv"))
-# Builder.load_file(os.path.join(os.path.dirname(__file__), "store.kv"))

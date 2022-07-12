@@ -1,44 +1,74 @@
 <DoubleCameraScreenView>:
     name: "doublecamerascreenview"
-    BoxLayout:
-        orientation: "horizontal"
-        Image:
-            id: camview
-            source: 'initials.jpg'
-            size_hint_y: 1
-            resolution: (1024, 1024)
-            allow_stretch: True
-            keep_ratio: True
 
+    do_default_tab: False
+
+    size_hint: 1, 1
+    pos_hit: {'center_x': 0.6125, 'center_y': 0.6125}
+
+    tab_pos:'left_top'
+
+    TabbedPanelItem:
+        text: "CaptureScreen"
+        BoxLayout:
+            orientation: "horizontal"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+            Image:
+                id: camview
+                source: 'initials.jpg'
+                resolution: (1024, 1024)
+                allow_stretch: True
+                keep_ratio: True
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_x: 0.3
+                Button:
+                    id: start_capture
+                    font_size: 30
+                    text: "START\nCAPTURE"
+                    on_press: app.start_camera()
+
+                Button:
+                    id: stop_capture
+                    font_size: 30
+                    text: "STOP\nCAPTURE"
+                    on_press: app.stop_camera()
+
+                Button:
+                    id: start_yolo_detector
+                    font_size: 30
+                    text: "START\nDETECTOR"
+                    on_press: app.start_yolo_detector()
+
+                Button:
+                    id: stop_yolo_detector
+                    font_size: 30
+                    text: "STOP\nDETECTOR"
+                    on_press: app.stop_yolo_detector()
+    TabbedPanelItem:
+        text: "Configure"
         BoxLayout:
             orientation: "vertical"
-            size_hint_x: 0.3
 
-            Button:
-                id: start_capture
+            Label:
+                text: "1) Enter the IPv4 address of the server.\n2) Enter the port number. \n3) Press the Configure Server button. \nMake sure that the server is active."
+                font_size: 20
+                text_size: self.width, None
+            TextInput:
+                text: "192.168.11.7"
                 font_size: 30
-                text: "START\nCAPTURE"
-                size_hint_y: 1
-                on_press: app.start_camera()
+                id: ip_address
+            TextInput:
+                text: "60001"
+                font_size: 30
+                id: port_number
+            Button:
+                id: cam_size
+                font_size: 30
+                text_size: self.width, None
+                text: "CONFIGURE SERVER"
+                on_press: app.cam_size()
 
-            Button:
-                id: stop_capture
-                font_size: 30
-                text: "STOP\nCAPTURE"
-                size_hint_y: 1
-                on_press: app.stop_camera()
 
-            Button:
-                id: start_yolo_detectore
-                font_size: 30
-                text: "START\nDETECTOR"
-                size_hint_y: 1
-                on_press: app.start_yolo_detector()
-
-            Button:
-                id: stop_capture
-                font_size: 30
-                text: "STOP\nDETECTOR"
-                size_hint_y: 1
-                on_press: app.stop_yolo_detector()
 

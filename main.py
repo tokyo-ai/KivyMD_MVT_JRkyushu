@@ -1,14 +1,14 @@
+import os
 from os import path
 
+from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
-from kivymd.uix.button import MDRectangleFlatButton
 
 from Controller.doublecamerascreen import DoubleCameraScreenController
 from Model.doublecamerascreen import DoubleCameraModel
 from kivy.resources import resource_add_path
 from kivy.core.text import DEFAULT_FONT, LabelBase
-
 
 class TextMVC(MDApp):
     def __init__(self, **kwargs):
@@ -34,11 +34,7 @@ class TextMVC(MDApp):
 
     def build(self):
         self.theme_cls.primary_palette = "LightBlue"
-        screen = Screen()
-        screen.add_widget(
-            self.controller.get_screen()
-        )
-        return screen
+        return self.controller.get_screen()
 
 
 if __name__ == "__main__":

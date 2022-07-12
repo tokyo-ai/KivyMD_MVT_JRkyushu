@@ -1,4 +1,3 @@
-import imutils as imutils
 from kivy.graphics.texture import Texture
 from kivy.properties import ObjectProperty, BooleanProperty, Clock
 from kivy.uix.widget import Widget
@@ -16,9 +15,6 @@ class DoubleCameraModel(Widget):
         self._camera_texture = self.load_jpeg_texture()
         self._camera_status = False
         self._observers = []
-        Clock.schedule_interval(
-            lambda dt: self.refresh_content(), 1 / 30
-        )
 
     @property
     def camera_texture(self):
@@ -30,7 +26,9 @@ class DoubleCameraModel(Widget):
 
     def start_camera(self):
         self._camera_status = True
-        self.notify_observers()
+        Clock.schedule_interval(
+            lambda dt: self.refresh_content(), 1 / 30.0
+        )
 
     def stop_camera(self):
         self._camera_status = False
@@ -64,9 +62,6 @@ class DoubleCameraModel(Widget):
                 texture = CoreImage(buf, ext='jpg').texture
                 return texture
 
-    def zip_image(self, frame, comp_ratio):
-        pass
-
     def refresh_content(self):
         if self._camera_status:
             capture0 = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -75,10 +70,9 @@ class DoubleCameraModel(Widget):
                 return
             ret0, frame = capture0.read()
             buf = cv2.flip(frame, 0)
-            # frame = imutils.resize(frame, width=400)
-            texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
-            texture.blit_buffer(buf.tostring())
-            # texture.blit_buffer(buf.tostring(), colorfmt='bgr', bufferfmt='ubyte')
+            texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='rgb')
+            texture.blit_buffer(buf.tostring(), colorfmt='bgr', bufferfmt='ubyte')
             self.set_camera_texture(texture)
         else:
-            pass
+            self._camera_texture = self.load_jpeg_texture()
+
