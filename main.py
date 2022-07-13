@@ -17,7 +17,7 @@ class TextMVC(MDApp):
         self.model = DoubleCameraModel()
         self.controller = DoubleCameraScreenController(self.model)
 
-    def cam_size(self):
+    def configure(self):
         pass
 
     def start_camera(self):
