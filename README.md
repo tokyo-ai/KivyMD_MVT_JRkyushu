@@ -4,4 +4,4 @@
 ![](KivyMD_MVT.jpg)
 - 
 - Step2: Adding Adapter Interface of UDPSocket to separate the front end and back end
-![](C:/Users/wangs/Downloads/JR Kyushu Kivy Ilustrate.drawio.png)
+![](JR Kyushu Kivy Ilustrate.jpg)
