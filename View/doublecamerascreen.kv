@@ -1,74 +1,107 @@
 <DoubleCameraScreenView>:
     name: "doublecamerascreenview"
-
-    do_default_tab: False
-
-    size_hint: 1, 1
-    pos_hit: {'center_x': 0.6125, 'center_y': 0.6125}
-
-    tab_pos:'left_top'
-
-    TabbedPanelItem:
-        text: "CaptureScreen"
-        BoxLayout:
-            orientation: "horizontal"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-            Image:
-                id: camview
-                source: 'initials.jpg'
-                resolution: (1024, 1024)
-                allow_stretch: True
-                keep_ratio: True
-
-            BoxLayout:
-                orientation: "vertical"
-                size_hint_x: 0.3
-                Button:
-                    id: start_capture
-                    font_size: 30
-                    text: "START\nCAPTURE"
-                    on_press: app.start_camera()
-
-                Button:
-                    id: stop_capture
-                    font_size: 30
-                    text: "STOP\nCAPTURE"
-                    on_press: app.stop_camera()
-
-                Button:
-                    id: start_yolo_detector
-                    font_size: 30
-                    text: "START\nDETECTOR"
-                    on_press: app.start_yolo_detector()
-
-                Button:
-                    id: stop_yolo_detector
-                    font_size: 30
-                    text: "STOP\nDETECTOR"
-                    on_press: app.stop_yolo_detector()
-    TabbedPanelItem:
-        text: "Configure"
+    BoxLayout:
+        orientation: "horizontal"
+        Image:
+            id: camview
+            source: 'initials.jpg'
+            size_hint_y: 1
+            resolution: (1024, 1024)
+            allow_stretch: True
+            keep_ratio: True
+            background_normal: ''
+            canvas.before:
+                Color:
+                    rgba: 0,0,0,1
+                Line:
+                    rectangle: self.x, self.y, self.width, self.height
         BoxLayout:
             orientation: "vertical"
-
-            Label:
-                text: "1) Enter the IPv4 address of the server.\n2) Enter the port number. \n3) Press the Configure Server button. \nMake sure that the server is active."
-                font_size: 20
-                text_size: self.width, None
-            TextInput:
-                text: "192.168.11.7"
-                font_size: 30
-                id: ip_address
-            TextInput:
-                text: "60001"
-                font_size: 30
-                id: port_number
+            size_hint_x: 0.3
             Button:
-                id: cam_size
+                id: start_capture
                 font_size: 30
-                text_size: self.width, None
-                text: "CONFIGURE SERVER"
-                on_press: app.configure()
+                text: "START\nCAPTURE"
+                color: root.button_font_color
+                background_color: root.button_background_color
+                size_hint_y: 1
+                on_press: app.start_camera()
+            Button:
+                id: stop_capture
+                font_size: 30
+                text: "STOP\nCAPTURE"
+                color: root.button_font_color
+                background_color: root.button_background_color
+                size_hint_y: 1
+                on_press: app.stop_camera()
 
+            Button:
+                id: start_yolo_detector
+                font_size: 30
+                text: "START\nDETECTOR"
+                color: root.button_font_color
+                background_color: root.button_background_color
+                size_hint_y: 1
+                on_press: app.start_yolo_detector()
+            Button:
+                id: stop_capture
+                font_size: 30
+                text: "STOP\nDETECTOR"
+                color: root.button_font_color
+                background_color: root.button_background_color
+                size_hint_y: 1
+                on_press: app.stop_yolo_detector()
+            Button:
+                id: stop_capture
+                font_size: 30
+                text: "BACK TO\nCONFIGURE"
+                color: root.button_font_color
+                background_color: root.button_background_color
+                size_hint_y: 1
+                on_press: app.stop_yolo_detector()
 
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.2
 
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: 0.5
+            BoxLayout:
+                orientation: 'horizontal'
+                Button:
+                    size_hint_x: 0.15
+                    text: 'SAVE'
+                    font_size: 30
+                    background_color: (216/255, 154/255, 104/255, 1)
+                    on_press: app.save()
+                    background_normal: ''
+                    canvas.after:
+                        Color:
+                            rgba: 0,0,0,1
+                        Line:
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    size_hint_x: 0.25
+                    text: ' BACK TO\nCONFIGURE'
+                    font_size: 30
+                    on_press: app.to_configure()
+                    background_normal: ''
+                    background_color: (60/255, 60/255, 60/255, 1)
+                    canvas.after:
+                        Color:
+                            rgba: 0,0,0,1
+                        Line:
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    size_hint_x: 0.25
+                    text: 'EXIT'
+                    font_size: 30
+                    on_press: app.shift_right()
+                    background_normal: ''
+                    background_color: (60/255, 60/255, 60/255, 1)
+                    canvas.after:
+                        Color:
+                            rgba: 0,0,0,1
+                        Line:
+                            rectangle: self.x, self.y, self.width, self.height

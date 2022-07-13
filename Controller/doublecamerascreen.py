@@ -9,7 +9,6 @@ class DoubleCameraScreenController:
         self.model = model
         self.view = DoubleCameraScreenView(controller=self, model=self.model)
 
-
     def get_screen(self):
         return self.view
 
