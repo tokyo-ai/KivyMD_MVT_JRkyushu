@@ -1,6 +1,9 @@
 import multiprocessing as mp
+
+from kivy.uix.screenmanager import ScreenManager, Screen
+
 from Model.doublecamerascreen import DoubleCameraModel
-from View.doublecamerascreen import DoubleCameraScreenView
+from View.doublecamerascreen import DoubleCameraScreenView, ConfigureScreen
 from kivy.graphics.texture import Texture
 
 
@@ -10,7 +13,20 @@ class DoubleCameraScreenController:
         self.view = DoubleCameraScreenView(controller=self, model=self.model)
 
     def get_screen(self):
-        return self.view
+        self.screenmanager = ScreenManager()
+
+        self.capturescreen = DoubleCameraScreenView()
+        screen = Screen(name='capture screen')
+        screen.add_widget(self.capturescreen)
+        self.screenmanager.add_widget(screen)
+
+        self.configurescreen = ConfigureScreen()
+        screen = Screen(name='congifure screen')
+        screen.add_widget(self.configurescreen)
+        self.screenmanager.add_widget(screen)
+
+        return self.screenmanager
+        # return self.theapp.view
 
     def get_camera_status(self):
         return self.model._open_camera

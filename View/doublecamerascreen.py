@@ -1,4 +1,6 @@
 import os
+
+from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.widget import Widget
@@ -6,6 +8,8 @@ from kivymd.uix.screen import MDScreen
 from kivy.properties import ObjectProperty, ListProperty
 from Utility.observer import Observer
 from kivy.graphics.texture import Texture
+
+Builder.load_file(os.path.join(os.path.dirname(__file__), "doublecamerascreen.kv"))
 
 
 class ColorTheme:
@@ -19,6 +23,12 @@ class ColorTheme:
 default_color_theme = ColorTheme(font_color=[120 / 255, 120 / 255, 120 / 255, 120 / 255],
                                  background_color=[87 / 255, 87 / 255, 87 / 255, 1])
 
+class ConfigureScreen(Widget):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def change(self):
+        self.controller.screenmanager.current = 'capture screen'
 
 
 class DoubleCameraScreenView(MDScreen, Observer):
@@ -31,6 +41,9 @@ class DoubleCameraScreenView(MDScreen, Observer):
         super().__init__(**kwargs)
         self.model.add_observer(self)
 
+    def change(self):
+        self.controller.screenmanager.current = 'congifure screen'
+
     def set_camera_texture(self, value: Texture):
         self.controller.set_camera_texture(value)
 
@@ -38,5 +51,4 @@ class DoubleCameraScreenView(MDScreen, Observer):
         self.ids.camview.texture = self.model._camera_texture
 
 
-Builder.load_file(os.path.join(os.path.dirname(__file__), "doublecamerascreen.kv"))
 # kv = Builder.load_file(os.path.join(os.path.dirname(__file__), "newtrial.kv"))

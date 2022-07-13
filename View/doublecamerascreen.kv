@@ -58,7 +58,7 @@
                 color: root.button_font_color
                 background_color: root.button_background_color
                 size_hint_y: 1
-                on_press: app.stop_yolo_detector()
+                on_press: root.change()
 
     BoxLayout:
         orientation: 'horizontal'
@@ -85,7 +85,7 @@
                     size_hint_x: 0.25
                     text: ' BACK TO\nCONFIGURE'
                     font_size: 30
-                    on_press: app.to_configure()
+                    on_press: root.change()
                     background_normal: ''
                     background_color: (60/255, 60/255, 60/255, 1)
                     canvas.after:
@@ -105,3 +105,16 @@
                             rgba: 0,0,0,1
                         Line:
                             rectangle: self.x, self.y, self.width, self.height
+<ConfigureScreen>
+    Button:
+        size_hint_x: 0.25
+        text: ' BACK TO\nCAPTURE'
+        font_size: 30
+        on_press: root.change()
+        background_normal: ''
+        background_color: (60/255, 60/255, 60/255, 1)
+        canvas.after:
+            Color:
+                rgba: 0,0,0,1
+            Line:
+                rectangle: self.x, self.y, self.width, self.height
