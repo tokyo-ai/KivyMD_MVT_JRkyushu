@@ -1,4 +1,7 @@
 ### Minimum Version for JR Kyushu Kivy GUI
 - KivyMD project with Model-View/Template-Controller framework 
-- Minimal Framework of MVC
+- Step1: Minimal Framework of MVC in Front End
 ![](KivyMD_MVT.jpg)
+- 
+- Step2: Adding Adapter Interface of UDPSocket to separate the front end and back end
+![](C:/Users/wangs/Downloads/JR Kyushu Kivy Ilustrate.drawio.png)

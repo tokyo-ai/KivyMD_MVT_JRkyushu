@@ -33,7 +33,6 @@ class TextMVC(MDApp):
         self.controller.stop_yolo_detector()
 
     def build(self):
-        self.theme_cls.primary_palette = "LightBlue"
         return self.controller.get_screen()
 
 
