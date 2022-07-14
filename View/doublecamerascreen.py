@@ -1,7 +1,5 @@
 import os
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen, ScreenManager
-from kivy.uix.widget import Widget
 from kivymd.uix.screen import MDScreen
 from kivy.properties import ObjectProperty, ListProperty
 from Utility.observer import Observer
@@ -39,4 +37,3 @@ class DoubleCameraScreenView(MDScreen, Observer):
 
 
 Builder.load_file(os.path.join(os.path.dirname(__file__), "doublecamerascreen.kv"))
-# kv = Builder.load_file(os.path.join(os.path.dirname(__file__), "newtrial.kv"))
