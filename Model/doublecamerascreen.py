@@ -1,11 +1,16 @@
+from datetime import datetime
+import io
+import os
 import time
+from os import path
+
+import cv2
+from kivy.core.image import Image as CoreImage
 from kivy.graphics.texture import Texture
 from kivy.properties import ObjectProperty, BooleanProperty, Clock
 from kivy.uix.widget import Widget
-from os import path
-from kivy.core.image import Image as CoreImage
-import io
-import cv2
+
+from Model.imgstorage import GUIStorageSaver
 
 
 class DoubleCameraModel(Widget):
@@ -13,7 +18,8 @@ class DoubleCameraModel(Widget):
     _camera_status = BooleanProperty(False)
 
     def __init__(self):
-        self._camera_texture = self.load_jpeg_texture()
+        self._camera_texture= self.load_jpeg_texture()
+        self._camera_bytes= None
         self._camera_status = False
         self._observers = []
 
@@ -29,7 +35,10 @@ class DoubleCameraModel(Widget):
         self._camera_status = True
         capture0 = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         Clock.schedule_interval(
-            lambda dt: self.refresh_content_cameraon(capture0), 1 / 60.0
+            lambda dt: self.refresh_content_cameraon(capture0), 1 / 45.0
+        )
+        Clock.schedule_interval(
+            lambda dt: self.save_capture_images(), 1 / 45.0
         )
         self.notify_observers()
 
@@ -40,6 +49,8 @@ class DoubleCameraModel(Widget):
         Clock.unschedule(
             lambda dt: self.refresh_content_cameraon(capture0))
         time.sleep(0.05)
+        Clock.unschedule(
+            lambda dt: self.save_capture_images())
         # capture0.release()
         self.notify_observers()
 
@@ -64,6 +75,7 @@ class DoubleCameraModel(Widget):
                                        'initials.jpg')
         with open(initial_image_path, 'rb') as f:
             jpg_bytes = f.read()
+            self._camera_bytes = jpg_bytes
             with io.BytesIO(jpg_bytes) as buf:
                 texture = CoreImage(buf, ext='jpg').texture
                 return texture
@@ -72,14 +84,24 @@ class DoubleCameraModel(Widget):
         if capture0 is None or not capture0.isOpened():
             capture0 = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         ret0, frame0 = capture0.read()
+        self._camera_bytes = frame0
+        self._camera_bytes = frame0
         buf = cv2.flip(frame0, 0)
         if self._camera_status:
             texture = Texture.create(size=(frame0.shape[1], frame0.shape[0]), colorfmt='rgb')
             texture.blit_buffer(buf.tostring(), colorfmt='bgr', bufferfmt='ubyte')
             self.set_camera_texture(texture)
 
-    def start_camera_save(self):
-        pass
+    def save_capture_images(self):
+        USER_DIR = (os.environ["USERPROFILE"]
+                    if "USERPROFILE" in os.environ
+                    else os.environ["HOME"])
+        BACKUP_HISTORY_DIR = path.join(USER_DIR, 'Pictures', 'JRcapture_history')
+        gui_storage_saver = GUIStorageSaver(location=BACKUP_HISTORY_DIR,
+                                            basename='localstorage')
+        gui_storage_saver.save_image(time_stamp=datetime,
+                                     action_name='screen_capture',
+                                     preview_jpg=self._camera_bytes)
 
     @staticmethod
     def resize_frame(self, frame, scale_percent=30):
@@ -88,4 +110,3 @@ class DoubleCameraModel(Widget):
         dim = (width, height)
         resized = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
         return resized
-

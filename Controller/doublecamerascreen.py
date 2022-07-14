@@ -20,7 +20,7 @@ class DoubleCameraScreenController:
 
     def start_camera(self):
         self.model.start_camera()
-        self.model.start_camera_save()
+
 
     def stop_camera(self):
         self.model.stop_camera()
