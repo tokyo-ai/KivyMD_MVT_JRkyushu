@@ -96,11 +96,11 @@ class DoubleCameraModel(Widget):
 
     def refresh_content_cameraon(self, capture0, capture1, *args):
         self._camera_bytes = self._double_camera.h_concat_frame()
-        frame0 = self._camera_bytes
+        frame01 = self._camera_bytes
 
-        buf = cv2.flip(frame0, 0)
+        buf = cv2.flip(frame01, 0)
         if self._camera_status:
-            texture = Texture.create(size=(frame0.shape[1], frame0.shape[0]), colorfmt='rgb')
+            texture = Texture.create(size=(frame01.shape[1], frame01.shape[0]), colorfmt='rgb')
             texture.blit_buffer(buf.tostring(), colorfmt='bgr', bufferfmt='ubyte')
             self.set_camera_texture(texture)
 

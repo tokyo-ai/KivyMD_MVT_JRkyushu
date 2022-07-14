@@ -12,6 +12,9 @@ class DoubleCameraScreenController:
     def get_screen(self):
         return self.view
 
+    def get_screen_configure(self):
+        return self.view.children['configure']
+
     def get_camera_status(self):
         return self.model._open_camera
 

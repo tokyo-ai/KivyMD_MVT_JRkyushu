@@ -36,4 +36,5 @@ class DoubleCameraScreenView(MDScreen, Observer):
         self.ids.camview.texture = self.model._camera_texture
 
 
+
 Builder.load_file(os.path.join(os.path.dirname(__file__), "doublecamerascreen.kv"))

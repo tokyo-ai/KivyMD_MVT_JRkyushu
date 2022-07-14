@@ -1,28 +1,30 @@
 <ConfigureScreen>:
     BoxLayout:
         orientation: "vertical"
-        pos_hint:{1, 1}
+        size: root.size
+
         Label:
             text: "1) Enter the IPv4 address of the server.\n2) Enter the port number. \n3) Press the Configure Server button. \nMake sure that the server is active."
-            size_hint_y: 1
+            font_size: 20
+
         TextInput:
-            text: "IPV4 Address"
+            text: "192.168.1.1"
             id: ip_address
-            size_hint_y: 1
+            font_size: 30
 
         TextInput:
             text: "60001"
             id: port_number
-            size_hint_y: 1
+            font_size: 30
 
         Button:
             id: cam_size
             text: "CONFIGURE SERVER"
-            on_press: app.configure()
-            size_hint_y: 1
+            on_press: theapp.configure()
+            font_size: 30
 
         Button:
             id: cam_size
             text: "BACK TO MAIN SCREEN"
-            on_press: app.configure()
-            size_hint_y: 1
+            on_press: root.build()
+            font_size: 30
