@@ -1,24 +1,22 @@
 import os
 from datetime import datetime
+
 import cv2
 
 
 class GUIStorageSaver:
 
     def __init__(self,
-                 location: str,
-                 basename: str):
+                 location: str):
         self._location = location
-        self._baseName = basename
 
     def save_image(self,
                    time_stamp: datetime,
-                   action_name: str,
                    preview_jpg: bytes):
-        data_dir = self._get_data_dir_path(datatime_string=time_stamp.now().strftime('%Y_%m_%d_%H'))
+        data_dir = self._get_data_dir_path(datatime_string=time_stamp.now().strftime('%Y_%m_%d'))
         os.makedirs(data_dir, exist_ok=True)
 
-        preview_file_name = f'{time_stamp.now().strftime("%Y{0}%m{1}%d{2}_%H{3}%M{4}%S{5}").format(*"YMDHMS")}_{action_name}.jpg'
+        preview_file_name = f'{time_stamp.now().strftime("%Y{0}%m{1}%d{2}_%H{3}%M{4}%S{5}%f{6}").format(*"YMDHMSf")}.jpg'
         self._save_preview(parent_dir=data_dir,
                            file_name=preview_file_name,
                            preview_data=preview_jpg)

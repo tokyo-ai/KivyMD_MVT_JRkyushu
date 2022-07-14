@@ -11,6 +11,7 @@ from kivy.properties import ObjectProperty, BooleanProperty, Clock
 from kivy.uix.widget import Widget
 
 from Model.imgstorage import GUIStorageSaver
+from Model.moviecreator import MovieCreator
 
 USER_DIR = (os.environ["USERPROFILE"]
             if "USERPROFILE" in os.environ
@@ -27,6 +28,9 @@ class DoubleCameraModel(Widget):
         self._camera_bytes = None
         self._camera_status = False
         self._observers = []
+        self._image_storage_path = None
+        self._movie_file_name = 'screen_capture'
+        self._gui_storage_saver = GUIStorageSaver(location=BACKUP_HISTORY_DIR)
 
     @property
     def camera_texture(self):
@@ -45,11 +49,13 @@ class DoubleCameraModel(Widget):
         Clock.schedule_interval(
             lambda dt: self.save_capture_images(), 1 / 45.0
         )
+        self._image_storage_path = self._gui_storage_saver._get_data_dir_path(datetime.now().strftime('%Y_%m_%d'))
         self.notify_observers()
 
     def stop_camera(self):
         self._camera_status = False
         self._camera_texture = self.load_jpeg_texture()
+        time.sleep(0.05)
         capture0 = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         Clock.unschedule(
             lambda dt: self.refresh_content_cameraon(capture0))
@@ -90,26 +96,20 @@ class DoubleCameraModel(Widget):
             capture0 = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         ret0, frame0 = capture0.read()
         self._camera_bytes = frame0
-
-        # Save to local storage automatically
-        data_dir = os.path.join(BACKUP_HISTORY_DIR, datetime.now().strftime('%Y_%m_%d_%H'))
-        os.makedirs(data_dir, exist_ok=True)
-        action_name = 'capture_screen'
-        preview_file_name = f'{datetime.now().strftime("%Y{0}%m{1}%d{2}_%H{3}%M{4}%S{5}").format(*"YMDHMS")}_{action_name}.jpg'
-        cv2.imwrite(os.path.join(data_dir, preview_file_name), frame0)
-
         buf = cv2.flip(frame0, 0)
         if self._camera_status:
             texture = Texture.create(size=(frame0.shape[1], frame0.shape[0]), colorfmt='rgb')
             texture.blit_buffer(buf.tostring(), colorfmt='bgr', bufferfmt='ubyte')
             self.set_camera_texture(texture)
+            self.save_capture_images()
 
     def save_capture_images(self):
-        gui_storage_saver = GUIStorageSaver(location=BACKUP_HISTORY_DIR,
-                                            basename='localstorage')
-        gui_storage_saver.save_image(time_stamp=datetime,
-                                     action_name='screen_capture',
+        self._gui_storage_saver.save_image(time_stamp=datetime,
                                      preview_jpg=self._camera_bytes)
+
+    def save_movie(self):
+        movie_cr = MovieCreator(image_storage_path = self._image_storage_path, movie_file_name=self._movie_file_name)
+        movie_cr.create_movie()
 
     @staticmethod
     def resize_frame(self, frame, scale_percent=30):

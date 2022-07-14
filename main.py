@@ -32,6 +32,9 @@ class TextMVC(MDApp):
     def stop_yolo_detector(self):
         self.controller.stop_yolo_detector()
 
+    def save_movie(self):
+        self.controller.save_movie()
+
     def build(self):
         return self.controller.get_screen()
 
