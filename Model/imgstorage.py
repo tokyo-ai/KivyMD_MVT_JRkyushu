@@ -1,6 +1,5 @@
 import os
 from datetime import datetime
-
 import cv2
 
 
@@ -34,5 +33,3 @@ class GUIStorageSaver:
         if preview_data is not None:
             cv2.imwrite(os.path.join(parent_dir, file_name), preview_data)
 
-        # with open(os.path.join(parent_dir, file_name), mode='wb') as f:
-        #     f.write(preview_data)

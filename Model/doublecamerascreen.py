@@ -1,7 +1,7 @@
-from datetime import datetime
 import io
 import os
 import time
+from datetime import datetime
 from os import path
 
 import cv2
@@ -12,14 +12,19 @@ from kivy.uix.widget import Widget
 
 from Model.imgstorage import GUIStorageSaver
 
+USER_DIR = (os.environ["USERPROFILE"]
+            if "USERPROFILE" in os.environ
+            else os.environ["HOME"])
+BACKUP_HISTORY_DIR = path.join(USER_DIR, 'Pictures', 'JRcapture_history')
+
 
 class DoubleCameraModel(Widget):
     _camera_texture = ObjectProperty(None)
     _camera_status = BooleanProperty(False)
 
     def __init__(self):
-        self._camera_texture= self.load_jpeg_texture()
-        self._camera_bytes= None
+        self._camera_texture = self.load_jpeg_texture()
+        self._camera_bytes = None
         self._camera_status = False
         self._observers = []
 
@@ -51,7 +56,7 @@ class DoubleCameraModel(Widget):
         time.sleep(0.05)
         Clock.unschedule(
             lambda dt: self.save_capture_images())
-        # capture0.release()
+        capture0.release()
         self.notify_observers()
 
     def start_yolo_detector(self):
@@ -85,7 +90,14 @@ class DoubleCameraModel(Widget):
             capture0 = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         ret0, frame0 = capture0.read()
         self._camera_bytes = frame0
-        self._camera_bytes = frame0
+
+        # Save to local storage automatically
+        data_dir = os.path.join(BACKUP_HISTORY_DIR, datetime.now().strftime('%Y_%m_%d_%H'))
+        os.makedirs(data_dir, exist_ok=True)
+        action_name = 'capture_screen'
+        preview_file_name = f'{datetime.now().strftime("%Y{0}%m{1}%d{2}_%H{3}%M{4}%S{5}").format(*"YMDHMS")}_{action_name}.jpg'
+        cv2.imwrite(os.path.join(data_dir, preview_file_name), frame0)
+
         buf = cv2.flip(frame0, 0)
         if self._camera_status:
             texture = Texture.create(size=(frame0.shape[1], frame0.shape[0]), colorfmt='rgb')
@@ -93,10 +105,6 @@ class DoubleCameraModel(Widget):
             self.set_camera_texture(texture)
 
     def save_capture_images(self):
-        USER_DIR = (os.environ["USERPROFILE"]
-                    if "USERPROFILE" in os.environ
-                    else os.environ["HOME"])
-        BACKUP_HISTORY_DIR = path.join(USER_DIR, 'Pictures', 'JRcapture_history')
         gui_storage_saver = GUIStorageSaver(location=BACKUP_HISTORY_DIR,
                                             basename='localstorage')
         gui_storage_saver.save_image(time_stamp=datetime,
