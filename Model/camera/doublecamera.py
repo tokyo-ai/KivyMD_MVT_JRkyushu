@@ -20,6 +20,7 @@ class DoubleCamera:
         self.cameraInstance0 = Camera(index=index0, size=size0, fps=fps0)
         self.cameraInstance1 = Camera(index=index1, size=size1, fps=fps1)
 
+
     def h_concat_frame(self):
         frame0 = self.cameraInstance0.get()
         frame1 = self.cameraInstance1.get()
@@ -27,6 +28,7 @@ class DoubleCamera:
         return result_frame_01
 
     def start_double_camera(self):
+
         capture0 = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         capture1 = cv2.VideoCapture(1, cv2.CAP_DSHOW)
         return capture0, capture1

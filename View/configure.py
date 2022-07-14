@@ -12,6 +12,9 @@ class ConfigureScreen(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+    def build(self):
+        pass
+
 
 class theapp(App):
     def build(self):

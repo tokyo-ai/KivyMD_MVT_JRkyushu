@@ -10,15 +10,19 @@ from Model.doublecamerascreen import DoubleCameraModel
 from kivy.resources import resource_add_path
 from kivy.core.text import DEFAULT_FONT, LabelBase
 
+from View.configure import ConfigureScreen
+
+
 class TextMVC(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = 'KivyMD_MVT_JRkyushu'
         self.model = DoubleCameraModel()
         self.controller = DoubleCameraScreenController(self.model)
+        self.configureView = ConfigureScreen()
 
     def to_configure(self):
-        self.controller.get_screen_configure()
+        self.configureView.build()
 
     def start_camera(self):
         self.controller.start_camera()

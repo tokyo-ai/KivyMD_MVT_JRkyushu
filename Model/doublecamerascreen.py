@@ -32,7 +32,7 @@ class DoubleCameraModel(Widget):
         self._image_storage_path = None
         self._movie_file_name = 'screen_capture'
         self._gui_storage_saver = GUIStorageSaver(location=BACKUP_HISTORY_DIR)
-        self._double_camera = DoubleCamera()
+        self._double_camera = None
 
     @property
     def camera_texture(self):
@@ -44,6 +44,7 @@ class DoubleCameraModel(Widget):
 
     def start_camera(self):
         self._camera_status = True
+        self._double_camera = DoubleCamera()
         capture0, capture1 = self._double_camera.start_double_camera()
         Clock.schedule_interval(
             lambda dt: self.refresh_content_cameraon(capture0, capture1), 1 / 45.0
