@@ -74,7 +74,7 @@
                     text: 'SAVE'
                     font_size: 30
                     background_color: (216/255, 154/255, 104/255, 1)
-                    on_press: app.save_movie()
+                    on_press: app.to_configure()
                     background_normal: ''
                     canvas.after:
                         Color:
@@ -85,9 +85,10 @@
                     size_hint_x: 0.25
                     text: ' BACK TO\nCONFIGURE'
                     font_size: 30
-                    on_press: app.to_configure()
+                    on_press: app.root.children
                     background_normal: ''
                     background_color: (60/255, 60/255, 60/255, 1)
+                    on_release: app.to_configure()
                     canvas.after:
                         Color:
                             rgba: 0,0,0,1

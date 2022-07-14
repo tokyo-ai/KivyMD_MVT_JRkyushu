@@ -1,35 +1,21 @@
 import os
-
-from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.widget import Widget
+from kivy.properties import ObjectProperty
+from kivymd.uix.screen import MDScreen
 
-Builder.load_file(os.path.join(os.path.dirname(__file__), 'configure.kv'))
+from Utility.observer import Observer
 
 
-class ConfigureScreen(Widget):
+class ConfigureScreenView(MDScreen, Observer):
+    controller = ObjectProperty()
+    model = ObjectProperty()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.model.add_observer(self)
 
-    def build(self):
-        pass
+    def model_is_changed(self):
+        print('ConfigureScreenView model_is _changed')
+        self.root.current = self.controller.get_screen()
 
-
-class theapp(App):
-    def build(self):
-
-        self.screenmanager = ScreenManager()
-        self.configurescreen = ConfigureScreen()
-
-        screen = Screen(name = 'first screen')
-
-        screen.add_widget(self.configurescreen)
-        self.screenmanager.add_widget(screen)
-
-
-        return self.screenmanager
-
-if __name__ == "__main__":
-    theapp = theapp()
-    theapp.run()
+KV = Builder.load_file(os.path.join(os.path.dirname(__file__), 'configure.kv'))

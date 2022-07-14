@@ -5,6 +5,8 @@ from kivy.properties import ObjectProperty, ListProperty
 from Utility.observer import Observer
 from kivy.graphics.texture import Texture
 
+from View.configure import ConfigureScreenView
+
 
 class ColorTheme:
     def __init__(self,
