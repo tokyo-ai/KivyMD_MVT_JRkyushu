@@ -1,11 +1,10 @@
 import os
 from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen, ScreenManager
 from kivymd.uix.screen import MDScreen
 from kivy.properties import ObjectProperty, ListProperty
 from Utility.observer import Observer
 from kivy.graphics.texture import Texture
-
-from View.configure import ConfigureScreenView
 
 
 class ColorTheme:
@@ -19,9 +18,14 @@ class ColorTheme:
 default_color_theme = ColorTheme(font_color=[120 / 255, 120 / 255, 120 / 255, 120 / 255],
                                  background_color=[87 / 255, 87 / 255, 87 / 255, 1])
 
+class ConfigureScreenView(Screen):
+    pass
+
+class ProScreenManager(ScreenManager):
+    pass
 
 
-class DoubleCameraScreenView(MDScreen, Observer):
+class DoubleCameraScreenView(MDScreen, Observer, Screen):
     controller = ObjectProperty()
     model = ObjectProperty()
     button_font_color = ListProperty(default_color_theme.font_color)

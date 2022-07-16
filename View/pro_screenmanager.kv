@@ -1,0 +1,51 @@
+ProScreenManager:
+    CaptureScreenView:
+    ConfigureScreenView:
+
+<CaptureScreenView>:
+    name: "main"
+    GridLayout:
+        cols:1
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Password: "
+            TextInput:
+                id: passw
+                multiline: False
+        Button:
+            text: "Submit"
+            on_release: app.root.current = "configure_screen"
+
+<ConfigureScreenView>:
+    name: "configure_screen"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+
+        Label:
+            text: "1) Enter the IPv4 address of the server.\n2) Enter the port number. \n3) Press the Configure Server button. \nMake sure that the server is active."
+            font_size: 20
+
+        TextInput:
+            text: "192.168.1.1"
+            id: ip_address
+            font_size: 30
+
+        TextInput:
+            text: "60001"
+            id: port_number
+            font_size: 30
+
+        Button:
+            id: cam_size
+            text: "CONFIGURE SERVER"
+            on_press: theapp.configure()
+            font_size: 30
+
+        Button:
+            id: cam_size
+            text: "BACK TO MAIN SCREEN"
+            on_release: app.root.current = "main"
+            font_size: 30
+

@@ -1,3 +1,41 @@
+ProScreenManager:
+    DoubleCameraScreenView:
+    ConfigureScreenView:
+
+<ConfigureScreenView>:
+    name: "configure_screen"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+
+        Label:
+            text: "1) Enter the IPv4 address of the server.\n2) Enter the port number. \n3) Press the Configure Server button. \nMake sure that the server is active."
+            font_size: 20
+
+        TextInput:
+            text: "192.168.1.1"
+            id: ip_address
+            font_size: 30
+
+        TextInput:
+            text: "60001"
+            id: port_number
+            font_size: 30
+
+        Button:
+            id: cam_size
+            text: "CONFIGURE SERVER"
+            on_press: theapp.configure()
+            font_size: 30
+
+        Button:
+            id: cam_size
+            text: "BACK TO MAIN SCREEN"
+            on_release: app.root.current = "main"
+            font_size: 30
+
+
+
 <DoubleCameraScreenView>:
     name: "doublecamerascreenview"
     BoxLayout:
@@ -88,7 +126,7 @@
                     on_press: app.root.children
                     background_normal: ''
                     background_color: (60/255, 60/255, 60/255, 1)
-                    on_release: app.to_configure()
+                    on_release: app.root.current = "configure_screen"
                     canvas.after:
                         Color:
                             rgba: 0,0,0,1
@@ -98,7 +136,7 @@
                     size_hint_x: 0.25
                     text: 'EXIT'
                     font_size: 30
-                    on_press: app.shift_right()
+                    on_press: app.exit()
                     background_normal: ''
                     background_color: (60/255, 60/255, 60/255, 1)
                     canvas.after:
