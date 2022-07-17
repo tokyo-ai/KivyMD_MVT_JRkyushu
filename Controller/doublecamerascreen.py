@@ -1,5 +1,5 @@
 from Model.doublecamerascreen import DoubleCameraModel
-from View.doublecamerascreen import DoubleCameraScreenView, ConfigureScreen
+from View.doublecamerascreen import DoubleCameraScreenView
 from kivy.graphics.texture import Texture
 
 

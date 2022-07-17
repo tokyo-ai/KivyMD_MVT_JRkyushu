@@ -1,16 +1,10 @@
-import os
 from os import path
-
-from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen, ScreenManager
 from kivymd.app import MDApp
 
 from Controller.doublecamerascreen import DoubleCameraScreenController
 from Model.doublecamerascreen import DoubleCameraModel
 from kivy.resources import resource_add_path
 from kivy.core.text import DEFAULT_FONT, LabelBase
-
-from View.configure import ConfigureScreen
 
 
 class TextMVC(MDApp):
