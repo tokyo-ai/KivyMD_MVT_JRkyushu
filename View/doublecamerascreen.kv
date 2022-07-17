@@ -2,19 +2,47 @@
     name: "doublecamerascreenview"
     BoxLayout:
         orientation: "horizontal"
-        Image:
-            id: camview
-            source: 'initials.jpg'
-            size_hint_y: 1
-            resolution: (1024, 1024)
-            allow_stretch: True
-            keep_ratio: True
-            background_normal: ''
-            canvas.before:
-                Color:
-                    rgba: 0,0,0,1
-                Line:
-                    rectangle: self.x, self.y, self.width, self.height
+        BoxLayout:
+            orientation: "vertical"
+            Label:
+                text: "1) Enter the IPv4 address of the server.\n2) Enter the port number. \n3) Press the Configure Server button. \nMake sure that the server is active."
+                font_size: 20
+
+            TextInput:
+                text: "192.168.1.1"
+                id: ip_address
+                font_size: 30
+
+            TextInput:
+                text: "60001"
+                id: port_number
+                font_size: 30
+
+            Button:
+                id: cam_size
+                text: "CONFIGURE SERVER"
+                on_press: theapp.configure()
+                font_size: 30
+
+            Button:
+                id: cam_size
+                text: "BACK TO MAIN SCREEN"
+                on_press: root.change_screen()
+                font_size: 30
+
+            Image:
+                id: camview
+                source: 'initials.jpg'
+                size_hint_y: 1
+                resolution: (1024, 1024)
+                allow_stretch: True
+                keep_ratio: True
+                background_normal: ''
+                canvas.before:
+                    Color:
+                        rgba: 0,0,0,1
+                    Line:
+                        rectangle: self.x, self.y, self.width, self.height
         BoxLayout:
             orientation: "vertical"
             size_hint_x: 0.3
@@ -71,7 +99,7 @@
                 orientation: 'horizontal'
                 Button:
                     size_hint_x: 0.15
-                    text: 'SAVE'
+                    text: 'SAVE MOVIE'
                     font_size: 30
                     background_color: (216/255, 154/255, 104/255, 1)
                     on_press: app.save_movie()

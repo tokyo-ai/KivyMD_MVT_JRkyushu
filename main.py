@@ -2,7 +2,7 @@ import os
 from os import path
 
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
+from kivy.uix.screenmanager import Screen, ScreenManager
 from kivymd.app import MDApp
 
 from Controller.doublecamerascreen import DoubleCameraScreenController
@@ -19,10 +19,6 @@ class TextMVC(MDApp):
         self.title = 'KivyMD_MVT_JRkyushu'
         self.model = DoubleCameraModel()
         self.controller = DoubleCameraScreenController(self.model)
-        self.configureView = ConfigureScreen()
-
-    def to_configure(self):
-        self.configureView.build()
 
     def start_camera(self):
         self.controller.start_camera()
@@ -42,11 +38,9 @@ class TextMVC(MDApp):
     def build(self):
         return self.controller.get_screen()
 
-
 if __name__ == "__main__":
     # Add Japanese font
     resource_add_path(path.join(path.dirname(__file__), "Fonts"))
     LabelBase.register(DEFAULT_FONT, 'BIZ-UDGothicB.ttc')
-
     app = TextMVC()
     app.run()

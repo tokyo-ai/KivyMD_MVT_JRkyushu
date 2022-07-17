@@ -1,5 +1,6 @@
 import os
 from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen
 from kivymd.uix.screen import MDScreen
 from kivy.properties import ObjectProperty, ListProperty
 from Utility.observer import Observer
@@ -17,9 +18,17 @@ class ColorTheme:
 default_color_theme = ColorTheme(font_color=[120 / 255, 120 / 255, 120 / 255, 120 / 255],
                                  background_color=[87 / 255, 87 / 255, 87 / 255, 1])
 
+class ConfigureScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
+    def build(self):
+        pass
 
-class DoubleCameraScreenView(MDScreen, Observer):
+    def change_screen(self):
+        pass
+
+class DoubleCameraScreenView(MDScreen, Observer, Screen):
     controller = ObjectProperty()
     model = ObjectProperty()
     button_font_color = ListProperty(default_color_theme.font_color)
@@ -35,6 +44,3 @@ class DoubleCameraScreenView(MDScreen, Observer):
     def model_is_changed(self):
         self.ids.camview.texture = self.model._camera_texture
 
-
-
-Builder.load_file(os.path.join(os.path.dirname(__file__), "doublecamerascreen.kv"))
