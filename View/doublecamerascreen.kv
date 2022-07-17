@@ -2,19 +2,34 @@
     name: "doublecamerascreenview"
     BoxLayout:
         orientation: "horizontal"
-        Image:
-            id: camview
-            source: 'initials.jpg'
-            size_hint_y: 1
-            resolution: (1024, 1024)
-            allow_stretch: True
-            keep_ratio: True
-            background_normal: ''
-            canvas.before:
-                Color:
-                    rgba: 0,0,0,1
-                Line:
-                    rectangle: self.x, self.y, self.width, self.height
+        BoxLayout:
+            orientation: 'vertical'
+            Image:
+                id: camview
+                source: 'initials.jpg'
+                size_hint_y: 0.7
+                resolution: (1024, 1024)
+                allow_stretch: True
+                keep_ratio: True
+                background_normal: ''
+                canvas.before:
+                    Color:
+                        rgba: 0,0,0,1
+                    Line:
+                        rectangle: self.x, self.y, self.width, self.height
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.3
+                TextInput:
+                    text:'192.168.1.1'
+                    id: ip_address
+                    font_size: 30
+                    color: root.button_font_color
+                TextInput:
+                    text: "60001"
+                    id: port_number
+                    font_size: 30
+                    color: root.button_font_color
         BoxLayout:
             orientation: "vertical"
             size_hint_x: 0.3
@@ -54,12 +69,11 @@
             Button:
                 id: stop_capture
                 font_size: 30
-                text: "BACK TO\nCONFIGURE"
+                text: "STOP\nDETECTOR"
                 color: root.button_font_color
                 background_color: root.button_background_color
                 size_hint_y: 1
                 on_press: app.stop_yolo_detector()
-
     BoxLayout:
         orientation: 'horizontal'
         size_hint_y: 0.2
@@ -83,7 +97,7 @@
                             rectangle: self.x, self.y, self.width, self.height
                 Button:
                     size_hint_x: 0.25
-                    text: ' BACK TO\nCONFIGURE'
+                    text: 'CONFIGURE\nSERVER'
                     font_size: 30
                     on_press: app.to_configure()
                     background_normal: ''
