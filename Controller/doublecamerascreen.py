@@ -1,6 +1,5 @@
-import multiprocessing as mp
 from Model.doublecamerascreen import DoubleCameraModel
-from View.doublecamerascreen import DoubleCameraScreenView
+from View.doublecamerascreen import DoubleCameraScreenView, ConfigureScreen
 from kivy.graphics.texture import Texture
 
 
@@ -11,9 +10,6 @@ class DoubleCameraScreenController:
 
     def get_screen(self):
         return self.view
-
-    def get_screen_configure(self):
-        return self.view.children['configure']
 
     def get_camera_status(self):
         return self.model._open_camera
