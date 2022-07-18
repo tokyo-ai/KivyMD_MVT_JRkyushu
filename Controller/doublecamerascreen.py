@@ -2,14 +2,20 @@ from Model.doublecamerascreen import DoubleCameraModel
 from View.doublecamerascreen import DoubleCameraScreenView
 from kivy.graphics.texture import Texture
 
+from View.multiplescreen import theapp
+
 
 class DoubleCameraScreenController:
     def __init__(self, model: DoubleCameraModel):
         self.model = model
         self.view = DoubleCameraScreenView(controller=self, model=self.model)
+        self.multiplescreen = theapp()
 
     def get_screen(self):
         return self.view
+
+    def get_main_screen(self):
+        return self.multiplescreen.run()
 
     def get_camera_status(self):
         return self.model._open_camera

@@ -30,7 +30,8 @@ class TextMVC(MDApp):
         self.controller.save_movie()
 
     def build(self):
-        return self.controller.get_screen()
+        # return self.controller.get_screen()
+        return self.controller.get_main_screen()
 
 if __name__ == "__main__":
     # Add Japanese font

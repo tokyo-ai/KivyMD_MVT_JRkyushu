@@ -1,15 +1,36 @@
-<fscreen>
-    Label:
-        text: 'this is the first screen'
-        font_size: root.height*0.05
-        size: root.width*0.4, root.height*0.5
-        pos: root.width*0.3, root.height*0.5
-    Button:
-        text: 'switch screen'
-        size: root.width*0.2, root.height*0.05
-        pos: root.width*0.4, root.height*0.2
-        on_press: root.change()
-<secscreen>
+<MultiConfigureScreen>
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+
+        Label:
+            text: "1) Enter the IPv4 address of the server.\n2) Enter the port number. \n3) Press the Configure Server button. \nMake sure that the server is active."
+            font_size: 20
+
+        TextInput:
+            text: "192.168.1.1"
+            id: ip_address
+            font_size: 30
+
+        TextInput:
+            text: "60001"
+            id: port_number
+            font_size: 30
+
+        Button:
+            id: cam_size
+            text: "CONFIGURE SERVER"
+            on_press: root.configure()
+            font_size: 30
+
+        Button:
+            id: cam_size
+            text: "BACK TO DETECT SCREEN"
+            on_release:
+                root.manager.current='camera_view_screen'
+            font_size: 30
+
+<CameraViewScreen>
     Label:
         text: 'this is the second screen'
         font_size: root.height*0.05
@@ -20,3 +41,13 @@
         size: root.width*0.2, root.height*0.05
         pos: root.width*0.4, root.height*0.2
         on_press: root.change()
+<Manager>:
+    id: screen_manager
+    MultiConfigureScreen:
+        id: configure_screen
+        name:'configure_screen'
+        manager: screen_manager
+    CameraViewScreen:
+        id: cameraview_screen
+        name:'camera_view_screen'
+        manager: screen_manager
