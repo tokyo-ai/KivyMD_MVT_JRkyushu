@@ -13,6 +13,7 @@ from kivy.uix.widget import Widget
 from Model.camera.doublecamera import DoubleCamera
 from Model.image.imgstorage import GUIStorageSaver
 from Model.movie.moviecreator import MovieCreator
+from ServerCommand.cmdcontroller import CommandController
 
 USER_DIR = (os.environ["USERPROFILE"]
             if "USERPROFILE" in os.environ
@@ -72,7 +73,7 @@ class DoubleCameraModel(Widget):
     def start_yolo_detector(self):
         pass
 
-    def start_yolo_detector(self):
+    def stop_yolo_detector(self):
         pass
 
     def cam_size(self):
